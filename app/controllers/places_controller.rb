@@ -95,6 +95,7 @@ class PlacesController < ApplicationController
     if params[:search_query]
       chapman_codes = params[:search_query][:chapman_codes]
     else
+      logger.warn "FREEREG::SEARCH:PARAMTER no search QUERY parameter"
       log_possible_host_change
       chapman_codes = []
     end

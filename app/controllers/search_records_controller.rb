@@ -106,12 +106,12 @@ class SearchRecordsController < ApplicationController
         end
       end
       rescue Mongoid::Errors::DocumentNotFound 
-        log_possible_host_change
         flash[:notice] = "We encountered a problem retrieving that search, if this continues please let us know"
+        log_possible_host_change
         proceed = false
       rescue Mongoid::Errors::InvalidFind
-        log_missing_document("entry for search record",@search_record[:id], @search_query.id)
         flash[:notice] = "We encountered a problem retrieving that original entry, if this continues please let us know"
+        log_missing_document("entry for search record",@search_record[:id], @search_query.id)
         proceed = false
       ensure
         return proceed

@@ -9,15 +9,11 @@ class SearchQueriesController < ApplicationController
   RECORDS_PER_PAGE = 100
 
   def about
-    if params[:page_number]
-      @page_number = params[:page_number].to_i
-    else
-      @page_number = 0
-    end
     begin
       @search_query = SearchQuery.find(params[:id])
       # @emendations = EmendationRule.where(:replacement => @search_query.first_name.downcase).all.to_a unless @search_query.blank? || @search_query.first_name.blank?
     rescue Mongoid::Errors::DocumentNotFound
+      flash[:notice] = "That action id does not exist"
       log_possible_host_change
       redirect_to new_search_query_path
     end
