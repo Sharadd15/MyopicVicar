@@ -102,10 +102,6 @@ class SearchRecordsController < ApplicationController
         end
         if  @entry.nil?
           proceed = false
-<<<<<<< HEAD
-          log_missing_document("entry for search record",@search_record[:id], @search_query.id)
-          flash[:notice] = "We encountered a problem retrieving that original entry, if this continues please let us know"
-=======
         else
           if @search_record[:freereg1_csv_entry_id].present? 
             @entry = Freereg1CsvEntry.find(@search_record[:freereg1_csv_entry_id]) 
@@ -123,7 +119,6 @@ class SearchRecordsController < ApplicationController
             log_missing_document("file missing for entry for search record",@search_record[:id], @search_query.id)
             flash[:notice] = "We encountered a problem retrieving that original entry, if this continues please let us know"
           end
->>>>>>> master
         end
       end
       rescue Mongoid::Errors::InvalidFind
