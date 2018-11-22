@@ -133,6 +133,15 @@ class UserMailer < ActionMailer::Base
     mail(from: sender_email_address, to:  "#{@feedback.name} <#{@feedback.email_address}>", bcc: @cc_email_addresses, subject: @message.subject)
   end
 
+  def message_reply(reply, to_userid, copy_to, original_message, sender_userid)
+    @reply = reply
+    @original_message = original_message
+    sender_email_address = get_email_address_from_userid(sender_userid)
+    copy_to_mail_address = get_email_address_from_userid(copy_to) if copy_to.present?
+    to_email_address = get_email_address_from_userid(to_userid)
+    mail(from: sender_email_address, to: to_email_address, cc: copy_to_mail_address, subject: "#{@reply.subject} reference #{@original_message.identifier}")
+  end
+
   def feedback_action_request(contact,send_to,copies_to)
     @contact = contact
     @send_to = UseridDetail.userid(send_to).first
@@ -334,13 +343,14 @@ class UserMailer < ActionMailer::Base
     mail(:from => "freereg-registration@freereg.org.uk",:to => "#{@coordinator.person_forename} <#{@coordinator.email_address}>", :subject => "FreeReg change of email") unless @coordinator.blank?
   end
 
-  def send_message(mymessage,ccs,from)
+  def send_message(mymessage, ccs, from, sender)
     @message = mymessage
+    @sender = sender
     @reply_messages = Message.where(source_message_id: @message.source_message_id).all unless @message.source_message_id.blank?
     @respond_to_message = Message.id(@message.source_message_id).first
     from = "vinodhini.subbu@freeukgenealogy.org.uk" if from.blank?
     #get_message_attachment if @message.attachment.present? ||  @message.images.present?
-    mail(:from => from ,:to => "freereg-contacts@freereg.org.uk",  :bcc => ccs, :subject => "#{@message.subject}. Reference #{@message.identifier}")
+    mail(:from => from, :to => "freereg-contacts@freereg.org.uk", :bcc => ccs, :subject => "#{@message.subject} from #{@sender.person_forename} #{@sender.person_surname} of FreeREG. Reference #{@message.identifier}")
     #mail(:from => from ,:to => "vinodhini.subbu@freeukgenealogy.org.uk", :subject => "#{@message.subject}. Reference #{@message.identifier}")
   end
 
