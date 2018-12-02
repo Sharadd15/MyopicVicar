@@ -364,6 +364,8 @@ class MessagesController < ApplicationController
 
   def show
     session[:message_id] = @message.id if @message.present?
+    get_user_info_from_userid
+    @user.reload
     #get_user_info_from_userid
     @message = Message.id(params[:id]).first
     session[:message_id] = @message.id if @message.present?

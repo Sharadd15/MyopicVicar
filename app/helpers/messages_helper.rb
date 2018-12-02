@@ -134,6 +134,8 @@ module MessagesHelper
   def do_we_show_remove_action(message)
     do_we_permit = false
     if session[:message_base] == 'userid_messages'
+      p 'do_we_show_remove_action'
+      p @user
       do_we_permit = true unless message.a_reply? && !@user.userid_messages.include?(message.source_message_id)
     end
     do_we_permit
