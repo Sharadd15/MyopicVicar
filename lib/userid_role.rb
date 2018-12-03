@@ -116,8 +116,8 @@ module UseridRole
   }
   SYNDICATE_MANAGEMENT_OPTIONS =  ['Review Active Members' ,'Review All Members', 'Select Specific Member by Userid',
                                    'Select Specific Member by Email Address','Select Specific Member by Surname/Forename',"Incomplete Registrations","Create userid",
-                                   "Message To Syndicate",'View your Messages','Review Batches with Errors', 'Review Batches with Zero Dates',
-                                   'Review Batches by Filename',
+
+                                   "Syndicate Messages",'Review Batches with Errors', 'Review Batches with Zero Dates','Review Batches by Filename',
                                    'Review Batches by Userid then Filename', 'Review Batches by Most Recent Date of Change','Review Batches by Oldest Date of Change',
                                    'Review Specific Batch','List files waiting to be processed','List files NOT processed',"Upload New Batch",'Change Recruiting Status','Manage Images']
   SYNDICATE_OPTIONS_TRANSLATION = {
